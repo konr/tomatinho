@@ -1,0 +1,41 @@
+* About the program
+
+  /Tomatinho/ is a simple and beautiful [[http://www.pomodorotechnique.com/][pomodoro technique]] timer that
+  runs on Emacs and is not bloated with distractive graphics or inorganic
+  commands. Just press Enter, see time flow and do you best.
+
+* Using it
+
+  I bind it here to /F12/ with the following command:
+
+#+BEGIN_SRC lisp
+  (global-set-key (kbd "<f12>") 'tomatinho)
+#+END_SRC
+
+  When you start /Tomatinho/, you automatically begin your first
+  pomodoro. There is nothing to do at this point, except to work. You
+  can, of course, restart the pomodoro if you get distracted, or even
+  the whole series, but the program takes care of itself until the
+  25-minute mark is reached. At this point, the pause period will
+  start, and you'll have to press <Enter> when you done.
+
+  This cycle goes on forever.
+
+* Keybindings
+
+| Key     | Description                                     |
+|---------+-------------------------------------------------|
+| <Enter> | Forgoes the current pomodoro or leaves a break. |
+| R       | Resets the timer.                               |
+| <Tab>   | Toggles between display modes.                  |
+| q       | Kills the buffer.                               |
+| Q       | Turns off Tomatinho.                            |
+
+* Seeing is believing
+  
+  Check out these screenshots! 
+
+  - [[http://i.imgur.com/0saTG.png]] 
+  - [[http://i.imgur.com/sqB0M.png]]
+
+  Also try [[http://tomatinho.com]].
