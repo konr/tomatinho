@@ -69,7 +69,7 @@
               (append tomatinho-events `((reset . ,(cdr tomatinho-current))))
               tomatinho-current '(ok . 0)))
     (pause (setq tomatinho-events (append tomatinho-events (list tomatinho-current)))))
-  (setq tomatinho-current '(ok . 0))
+  (setq tomatinho-current '(ok . 0) tomatinho-last (timestamp))
   (play-sound-file-async tomatinho-sound-tick))
 
 (defun tomatinho-interactive-reset ()
@@ -92,7 +92,7 @@
   (interactive)
   (if (y-or-n-p "Are you sure you want to turn off Tomatinho? ")
       (progn (cancel-timer tomatinho-timer)
-	     (kill-current-buffer)
+             (kill-current-buffer)
              (play-sound-file-async tomatinho-sound-tick))
     (message "Pfew! That was close!")))
 
