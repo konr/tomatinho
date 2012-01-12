@@ -203,6 +203,7 @@
 ;; Main function ;;
 ;;;;;;;;;;;;;;;;;;;
 
+;;;###autoload
 (defun tomatinho ()
   "A simple and beautiful pomodoro technique timer."
   (interactive)
