@@ -93,7 +93,9 @@
   (if (y-or-n-p "Are you sure you want to turn off Tomatinho? ")
       (progn (cancel-timer tomatinho-timer)
              (kill-current-buffer)
-             (play-sound-file-async tomatinho-sound-tick))
+             (setq tomatinho-current '(ok . 0)
+                   tomatinho-events nil
+                   tomatinho-last (timestamp)))
     (message "Pfew! That was close!")))
 
 
@@ -112,7 +114,7 @@
                    (format "(play-sound-file \"%s\")" file))))
 
 (defun kill-current-buffer ()
-  "Kills the current-buffer."
+  "Kills the current buffer."
   (interactive)
   (kill-buffer (current-buffer)))
 
