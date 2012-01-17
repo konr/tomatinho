@@ -134,7 +134,7 @@
          (length (ceiling (/ (* 1.0 amount tomatinho-bar-length) tomatinho-pomodoro-length)))
          (text (make-string length ?░))
          (text (if (not (equal type 'reset)) text
-                 (concat text (make-string (- tomatinho-bar-length length) ?▁))))
+                 (concat text (make-string (- tomatinho-bar-length length) ?_))))
          (text (if (equal type 'pause) text (format "\n%d. %s" i text))))
     (propertize text 'font-lock-face
                 (case type
@@ -203,7 +203,6 @@
 ;; Main function ;;
 ;;;;;;;;;;;;;;;;;;;
 
-;;;###autoload
 (defun tomatinho ()
   "A simple and beautiful pomodoro technique timer."
   (interactive)
