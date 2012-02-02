@@ -67,6 +67,7 @@
   (case (car tomatinho-current)
     (ok (setq tomatinho-events
               (append tomatinho-events `((reset . ,(cdr tomatinho-current))))
+	      tomatinho-last (timestamp)
               tomatinho-current '(ok . 0)))
     (pause (setq tomatinho-events (append tomatinho-events (list tomatinho-current)))))
   (setq tomatinho-current '(ok . 0) tomatinho-last (timestamp))
