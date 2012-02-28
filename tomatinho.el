@@ -64,13 +64,12 @@
 (defun tomatinho-interactive-new-pomodoro ()
   "Forgoes the current pomodoro or leaves a break."
   (interactive)
-  (case (car tomatinho-current)
-    (ok (setq tomatinho-events
-              (append tomatinho-events `((reset . ,(cdr tomatinho-current))))
-	      tomatinho-last (timestamp)
-              tomatinho-current '(ok . 0)))
-    (pause (setq tomatinho-events (append tomatinho-events (list tomatinho-current)))))
-  (setq tomatinho-current '(ok . 0) tomatinho-last (timestamp))
+  (setq tomatinho-events
+        (case (car tomatinho-current)
+          (ok (append tomatinho-events `((reset . ,(cdr tomatinho-current)))))
+          (pause (append tomatinho-events (list tomatinho-current))))
+        tomatinho-current '(ok . 0) 
+	tomatinho-last (timestamp))
   (play-sound-file-async tomatinho-sound-tick))
 
 (defun tomatinho-interactive-reset ()
