@@ -2,6 +2,7 @@
 
 ;; Author: Konrad Scorciapino <konr@konr.mobi>
 ;; Keywords: time, productivity, pomodoro technique
+;; Version: 0.1
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -16,13 +17,13 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with GNU Emacs.  If not, see <http://www.gnu.org/licenses/>.
 
-;;; Commentary
+;;; Commentary:
 
 ;; Tomatinho is a simple and beautiful [[http://www.pomodorotechnique.com/][pomodoro technique]] timer that
 ;; runs on Emacs and is not bloated with distractive graphics or inorganic
 ;; commands. Just press Enter, see time flow and do you best.
 
-;;; Code
+;;; Code:
 
 (defvar tomatinho-buffer "Tomatinho!")
 (defvar tomatinho-format "%H:%M:%S")
@@ -215,3 +216,4 @@
 
 
 (provide 'tomatinho)
+;;; tomatinho.el ends here
