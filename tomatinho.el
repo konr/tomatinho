@@ -42,6 +42,7 @@
     (define-key map (kbd "<return>") 'tomatinho-interactive-new-pomodoro)
     (define-key map (kbd "<tab>") 'tomatinho-interactive-toggle-display)
     map))
+
 (defvar tomatinho-ok-face '(:foreground "#ff0000"))
 (defvar tomatinho-pause-face '(:foreground "#00ff00"))
 (defvar tomatinho-reset-face '(:foreground "#333333"))
