@@ -23,6 +23,8 @@
 ;; runs on Emacs and is not bloated with distractive graphics or inorganic
 ;; commands. Just press Enter, see time flow and do you best.
 
+(require 'cl)
+
 ;;; Code:
 
 (defvar tomatinho-buffer "Tomatinho!")
