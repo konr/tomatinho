@@ -169,9 +169,9 @@
       (let* ((type (car item)) (val (cdr item))
              (number (format "%d. " i))
              (number (if (equal type 'ok) number (make-string (length number) ? )))
-             (m-ok (format "Completed a pomodoro with %d minute%s\n" val (if (> val 2) "s" "")))
-             (m-reset (format "Gave up after %d minute%s\n" val (if (> val 2) "s" "")))
-             (m-pause (format "Had a break of %d minute%s\n" val (if (> val 2) "s" "")))
+             (m-ok (format "Completed a pomodoro with %d minute%s\n" val (if (> val 1) "s" "")))
+             (m-reset (format "Gave up after %d minute%s\n" val (if (> val 1) "s" "")))
+             (m-pause (format "Had a break of %d minute%s\n" val (if (> val 1) "s" "")))
              (message (case type
                         (ok (propertize m-ok 'font-lock-face tomatinho-ok-face))
                         (reset (propertize m-reset 'font-lock-face tomatinho-reset-face))
