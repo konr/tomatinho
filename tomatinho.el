@@ -219,7 +219,7 @@
   (setq tomatinho-last (timestamp))
   (tomatinho-update)
   (when tomatinho-timer (cancel-timer tomatinho-timer))
-  (setq tomatinho-timer (run-at-time nil 0 'tomatinho-update))
+  (setq tomatinho-timer (run-at-time nil 1 'tomatinho-update))
   (switch-to-buffer tomatinho-buffer))
 
 
