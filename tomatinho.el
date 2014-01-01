@@ -23,8 +23,6 @@
 ;; runs on Emacs and is not bloated with distractive graphics or inorganic
 ;; commands. Just press Enter, see time flow and do you best.
 
-(require 'cl)
-
 ;;; Code:
 
 (defvar tomatinho-buffer "Tomatinho!")
@@ -42,10 +40,11 @@
     (define-key map (kbd "<return>") 'tomatinho-interactive-new-pomodoro)
     (define-key map (kbd "<tab>") 'tomatinho-interactive-toggle-display)
     map))
-
 (defvar tomatinho-ok-face '(:foreground "#ff0000"))
 (defvar tomatinho-pause-face '(:foreground "#00ff00"))
 (defvar tomatinho-reset-face '(:foreground "#333333"))
+(defvar tomatinho-pomodoro-history-face
+  '(:height 444))
 (defvar tomatinho-events nil)
 (defvar tomatinho-current '(ok . 0))
 (defvar tomatinho-last 0)
@@ -170,9 +169,9 @@
       (let* ((type (car item)) (val (cdr item))
              (number (format "%d. " i))
              (number (if (equal type 'ok) number (make-string (length number) ? )))
-             (m-ok (format "Completed a pomodoro with %d minutes\n" val))
-             (m-reset (format "Gave up after %d minutes\n" val))
-             (m-pause (format "Had a break of %d minutes\n" val))
+             (m-ok (format "Completed a pomodoro with %d minute%s\n" val (if (> val 1) "s" "")))
+             (m-reset (format "Gave up after %d minute%s\n" val (if (> val 1) "s" "")))
+             (m-pause (format "Had a break of %d minute%s\n" val (if (> val 1) "s" "")))
              (message (case type
                         (ok (propertize m-ok 'font-lock-face tomatinho-ok-face))
                         (reset (propertize m-reset 'font-lock-face tomatinho-reset-face))
@@ -180,14 +179,19 @@
         (insert (concat number message)))))
   (let ((type (car tomatinho-current)) (val (cdr tomatinho-current))
         (diff (- (timestamp) tomatinho-last)))
-    (insert (format "\nCurrently on %s for %d minutes and %d seconds."
-                    (if (equal type 'ok) "a pomodoro" "break") val diff))))
+    (insert (propertize (format "%d:%02d %s"  val diff (if (equal type 'ok) "pomodoro" "break"))
+			'font-lock-face 
+			(append  tomatinho-time-face 
+				 (if (equal type 'ok) tomatinho-ok-face tomatinho-pause-face)
+				 tomatinho-pomodoro-history-face)))))
 
 
 (defun tomatinho-update ()
   "First updates the variables and then the buffer, if it exists."
   (let ((time (timestamp)) (type (car tomatinho-current)) (val (cdr tomatinho-current))
-        (l tomatinho-pomodoro-length) (tick tomatinho-sound-tick) (tack tomatinho-sound-tack))
+        (l tomatinho-pomodoro-length)
+        (tick nil) ;; MXE was here. Instead of:  (tick tomatinho-sound-tick)
+        (tack tomatinho-sound-tack))
     (when (>= (- time tomatinho-last) (if tomatinho-debug 0 60))
       (setq tomatinho-current (cons type (1+ val)) tomatinho-last time)
       (when (and (equal type 'ok) (>= (1+ val) l))
@@ -212,6 +216,7 @@
   (interactive)
   (with-current-buffer (get-buffer-create tomatinho-buffer)
     (use-local-map tomatinho-map) (font-lock-mode t))
+  (setq tomatinho-last (timestamp))
   (tomatinho-update)
   (when tomatinho-timer (cancel-timer tomatinho-timer))
   (setq tomatinho-timer (run-at-time nil 1 'tomatinho-update))
