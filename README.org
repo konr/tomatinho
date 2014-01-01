@@ -26,7 +26,7 @@
 | Key       | Description                                     |
 |-----------+-------------------------------------------------|
 | <Enter>   | Forgoes the current pomodoro or leaves a break. |
-| S-<Enter> | Deliberate pauses.                              |
+| S-<Enter> | Deliberately pauses.                            |
 | R         | Resets the timer.                               |
 | <Tab>     | Toggles between display modes.                  |
 | q         | Kills the buffer.                               |
