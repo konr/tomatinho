@@ -23,13 +23,14 @@
 
 * Keybindings
 
-| Key     | Description                                     |
-|---------+-------------------------------------------------|
-| <Enter> | Forgoes the current pomodoro or leaves a break. |
-| R       | Resets the timer.                               |
-| <Tab>   | Toggles between display modes.                  |
-| q       | Kills the buffer.                               |
-| Q       | Turns off Tomatinho.                            |
+| Key       | Description                                     |
+|-----------+-------------------------------------------------|
+| <Enter>   | Forgoes the current pomodoro or leaves a break. |
+| S-<Enter> | Deliberate pauses.                              |
+| R         | Resets the timer.                               |
+| <Tab>     | Toggles between display modes.                  |
+| q         | Kills the buffer.                               |
+| Q         | Turns off Tomatinho.                            |
 
 * Seeing is believing
   
