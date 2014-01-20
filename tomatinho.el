@@ -25,6 +25,8 @@
 
 ;;; Code:
 
+(require 'cl)
+
 (defvar tomatinho-buffer "Tomatinho!")
 (defvar tomatinho-format "%H:%M:%S")
 (defvar tomatinho-timer nil)
