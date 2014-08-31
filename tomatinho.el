@@ -56,10 +56,15 @@
     map))
 
 ;;; Pending custom
-(defvar tomatinho-format "%H:%M:%S") ; Would be unsafe to make a custom string
-(defvar tomatinho-dir (file-name-directory (or load-file-name buffer-file-name)))
-(defvar tomatinho-sound-tick (expand-file-name (concat tomatinho-dir "tick.wav")))
-(defvar tomatinho-sound-tack (expand-file-name (concat tomatinho-dir "tack.wav")))
+(defvar tomatinho-format "%H:%M:%S"
+  "Time format for podomoro clock") ; Would be unsafe to make a custom string
+(defvar tomatinho-dir (file-name-directory (or load-file-name buffer-file-name))
+  "Tomatinho directory in wich sounds ar store")
+;;§later: add more customization
+(defvar tomatinho-sound-tick (expand-file-name (concat tomatinho-dir "tick.wav"))
+  "Tick sound during a pomoro run.")
+(defvar tomatinho-sound-tack (expand-file-name (concat tomatinho-dir "tack.wav"))
+  "Tack sound during a break.")
 
 
 ;;;; Faces
@@ -72,12 +77,19 @@
   '(:height 444))
 
 ;;; Vars
-(defvar tomatinho-timer nil)
-(defvar tomatinho-events nil)
-(defvar tomatinho-current '(ok . 0))
-(defvar tomatinho-last 0)
-(defvar tomatinho-debug nil)
-(defvar tomatinho-display-tubes t)
+(defvar tomatinho-timer nil
+  "Tomatinho timer.")
+(defvar tomatinho-events nil
+  "Tomatinho event List")
+(defvar tomatinho-current '(ok . 0)
+  "Tomatinho current event.  'Initial value: all fine at the beggining'")
+(defvar tomatinho-last 0
+  "Tomatinho Last timestamp value")
+(defvar tomatinho-debug nil
+  "Tomatinho debugging switch")
+(defvar tomatinho-display-tubes t
+  "Tomatinho displaying mode, tubes rather than text.")
+;; §maybe: introduce a prefered mode.
 
 
 ;;;;;;;;;;;;;;;;;
