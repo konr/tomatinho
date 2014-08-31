@@ -121,7 +121,8 @@
   "Resets the timer."
   (interactive)
   (if (y-or-n-p "Are you sure you want to reset the timer? ")
-      (progn (setq tomatinho-current '(ok . 0) tomatinho-events nil
+      (progn (setq tomatinho-current '(ok . 0)
+		   tomatinho-events nil
                    tomatinho-last (timestamp))
              (play-sound-file-async tomatinho-sound-tick))
     (message "Pfew! That was close!")))
@@ -200,7 +201,8 @@
     (dolist (item (append tomatinho-events (list tomatinho-current)))
       (insert (tomatinho-tubes-string item i))
       (unless (equal (car item) 'pause)
-        (when (equal (car item) 'ok) (setq i (1+ i))))))
+        (when (equal (car item) 'ok)
+	  (setq i (1+ i))))))
   (insert (propertize "→\n\n" 'font-lock-face '(:weight bold)))
   (loop for item in tomatinho-events
         and extra = (if (equal (car tomatinho-current) 'ok) (cdr tomatinho-current) 0)
@@ -238,25 +240,30 @@
 
 (defun tomatinho-update ()
   "First updates the variables and then the buffer, if it exists."
-  (let ((time (timestamp)) (type (car tomatinho-current)) (val (cdr tomatinho-current))
-        (l tomatinho-pomodoro-length)
+  (let ((time (timestamp))
+	(type (car tomatinho-current))
+	(val (cdr tomatinho-current))
         (tick nil) ;; MXE was here. Instead of:  (tick tomatinho-sound-tick)
         (tack tomatinho-sound-tack))
     (when (>= (- time tomatinho-last) (if tomatinho-debug 0 60))
       (setq tomatinho-current (cons type (1+ val)) tomatinho-last time)
-      (when (and (equal type 'ok) (>= (1+ val) l))
-        (setq tomatinho-events (append tomatinho-events `((ok . ,l)))
+      (when (and (equal type 'ok)
+		 (>= (1+ val) tomatinho-pomodoro-length))
+        (setq tomatinho-events (append tomatinho-events `((ok . ,tomatinho-pomodoro-length)))
               tomatinho-current '(pause . 0)))
       (play-sound-file-async (if (equal (car tomatinho-current) 'ok) tick tack))))
   (when (get-buffer tomatinho-buffer)
     (with-current-buffer (get-buffer tomatinho-buffer)
       (unlocking-buffer
        (delete-region (point-min) (point-max))
+       ;; §note: redraw buffer each time.
        (setq buffer-undo-tree nil)
        (insert (propertize (format-time-string tomatinho-format)
                            'font-lock-face tomatinho-time-face))
        (insert "\n")
-       (if tomatinho-display-tubes (tomatinho-display-tubes) (tomatinho-display-history))))))
+       (if tomatinho-display-tubes
+	   (tomatinho-display-tubes)
+	 (tomatinho-display-history))))))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Main function ;;
@@ -266,7 +273,8 @@
   "A simple and beautiful pomodoro technique timer."
   (interactive)
   (with-current-buffer (get-buffer-create tomatinho-buffer)
-    (use-local-map tomatinho-map) (font-lock-mode t))
+    (use-local-map tomatinho-map)
+    (font-lock-mode t))
   (setq tomatinho-last (timestamp))
   (tomatinho-update)
   (when tomatinho-timer (cancel-timer tomatinho-timer))
