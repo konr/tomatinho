@@ -27,13 +27,24 @@
 
 (require 'cl)
 
-(defvar tomatinho-buffer "Tomatinho!")
-(defvar tomatinho-format "%H:%M:%S")
-(defvar tomatinho-timer nil)
-(defvar tomatinho-bar-length 25)
-(defvar tomatinho-pomodoro-length 25)
-(defvar tomatinho-time-face
-  '(:family "DejaVu Sans" :height 888 :width semi-condensed))
+
+;;; Customs
+(defgroup tomatinho nil
+  "Customs for `tomatinho' !"
+  :group 'productivity)
+
+(defcustom tomatinho-buffer "Tomatinho!" ;§torename
+  "Name of the Tomatinho buffer"
+  :type 'string :group 'tomatinho)
+
+(defcustom tomatinho-bar-length 25
+  "Length of a podomoro bar in tubes mode"
+  :type 'integer :group 'tomatinho)
+
+(defcustom tomatinho-pomodoro-length 25
+  "Time length of a Podomoro round."
+  :type 'integer :group 'tomatinho)
+
 (defvar tomatinho-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "q") 'tomatinho-interactive-kill-buffer)
@@ -43,19 +54,31 @@
     (define-key map (kbd "S-<return>") 'tomatinho-interactive-deliberate-pause)
     (define-key map (kbd "<tab>") 'tomatinho-interactive-toggle-display)
     map))
+
+;;; Pending custom
+(defvar tomatinho-format "%H:%M:%S") ; Would be unsafe to make a custom string
+(defvar tomatinho-dir (file-name-directory (or load-file-name buffer-file-name)))
+(defvar tomatinho-sound-tick (expand-file-name (concat tomatinho-dir "tick.wav")))
+(defvar tomatinho-sound-tack (expand-file-name (concat tomatinho-dir "tack.wav")))
+
+
+;;;; Faces
+(defvar tomatinho-time-face
+  '(:family "DejaVu Sans" :height 888 :width semi-condensed))
 (defvar tomatinho-ok-face '(:foreground "#ff0000"))
 (defvar tomatinho-pause-face '(:foreground "#00ff00"))
 (defvar tomatinho-reset-face '(:foreground "#333333"))
 (defvar tomatinho-pomodoro-history-face
   '(:height 444))
+
+;;; Vars
+(defvar tomatinho-timer nil)
 (defvar tomatinho-events nil)
 (defvar tomatinho-current '(ok . 0))
 (defvar tomatinho-last 0)
 (defvar tomatinho-debug nil)
 (defvar tomatinho-display-tubes t)
-(defvar tomatinho-dir (file-name-directory (or load-file-name buffer-file-name)))
-(defvar tomatinho-sound-tick (expand-file-name (concat tomatinho-dir "tick.wav")))
-(defvar tomatinho-sound-tack (expand-file-name (concat tomatinho-dir "tack.wav")))
+
 
 ;;;;;;;;;;;;;;;;;
 ;; Interactive ;;
@@ -138,7 +161,7 @@
 
 (defun tomatinho-set-events (events new-status)
   "Sets both the event history and the current status"
-  (setq tomatinho-events events 
+  (setq tomatinho-events events
         tomatinho-current new-status
         tomatinho-last   (timestamp)))
 
