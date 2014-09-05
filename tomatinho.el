@@ -68,13 +68,30 @@
 
 
 ;;;; Faces
-(defvar tomatinho-time-face
-  '(:family "DejaVu Sans" :height 888 :width semi-condensed))
-(defvar tomatinho-ok-face '(:foreground "#ff0000"))
-(defvar tomatinho-pause-face '(:foreground "#00ff00"))
-(defvar tomatinho-reset-face '(:foreground "#333333"))
+
+(defface tomatinho-time-face
+  '(( t ( :family "DejaVu Sans" :height 200 :width semi-condensed))) ;; §see height was 888 §see unit!!
+  "Tomatinho super face for time"
+  :group 'tomatinho)
+
+(defface tomatinho-ok-face
+  '((t (:foreground "#ff0000" :inherit tomatinho-time-face)))
+  "Tomatinho face for valid tomatinho run"
+  :group 'tomatinho)
+
+(defface tomatinho-pause-face
+  '((t (:foreground "#00ff00" :inherit tomatinho-time-face)))
+  "Tomatinho face for paused tomatinho"
+  :group 'tomatinho)
+
+(defface tomatinho-reset-face
+  '(( t (:foreground "blue" :inherit tomatinho-time-face))) ; was 333333
+  "Tomatinho face for reseted tomatinho"
+  :group 'tomatinho)
+
 (defvar tomatinho-pomodoro-history-face
-  '(:height 444))
+  '(:height 100)) ;; §see ;§was 444
+;; §maybe: differently set height of text?
 
 ;;; Vars
 (defvar tomatinho-timer nil
@@ -192,8 +209,10 @@
          (text (if (equal type 'pause) text (format "\n%d. %s" i text))))
     (propertize text 'font-lock-face
                 (case type
-                  (ok tomatinho-ok-face) (reset tomatinho-reset-face)
-                  (pause tomatinho-pause-face) (t nil)))))
+                  (ok 'tomatinho-ok-face)
+		  (reset 'tomatinho-reset-face)
+                  (pause 'tomatinho-pause-face)
+		  (t nil)))))
 
 (defun tomatinho-display-tubes ()
   "Displays the pomodoros done so far as a series of tubes."
@@ -225,18 +244,20 @@
              (m-reset (format "Gave up after %d minute%s\n" val (if (> val 1) "s" "")))
              (m-pause (format "Had a break of %d minute%s\n" val (if (> val 1) "s" "")))
              (message (case type
-                        (ok (propertize m-ok 'font-lock-face tomatinho-ok-face))
-                        (reset (propertize m-reset 'font-lock-face tomatinho-reset-face))
-                        (pause (propertize m-pause 'font-lock-face tomatinho-pause-face)))))
+                        (ok (propertize m-ok 'font-lock-face 'tomatinho-ok-face))
+                        (reset (propertize m-reset 'font-lock-face 'tomatinho-reset-face))
+                        (pause (propertize m-pause 'font-lock-face 'tomatinho-pause-face)))))
         (insert (concat number message)))))
   (let ((type (car tomatinho-current)) (val (cdr tomatinho-current))
         (diff (- (timestamp) tomatinho-last)))
     (insert (propertize (format "%d:%02d %s"  val diff (if (equal type 'ok) "pomodoro" "break"))
                         'font-lock-face
-                        (append  tomatinho-time-face
-                                 (if (equal type 'ok) tomatinho-ok-face tomatinho-pause-face)
-                                 tomatinho-pomodoro-history-face)))))
+			;; was (append  tomatinho-time-face
+                        (if (equal type 'ok) 'tomatinho-ok-face 'tomatinho-pause-face)
+                       ;;           tomatinho-pomodoro-history-face
 
+			))))
+;; §see: combine face!!
 
 (defun tomatinho-update ()
   "First updates the variables and then the buffer, if it exists."
@@ -259,7 +280,7 @@
        ;; §note: redraw buffer each time.
        (setq buffer-undo-tree nil)
        (insert (propertize (format-time-string tomatinho-format)
-                           'font-lock-face tomatinho-time-face))
+                           'font-lock-face 'tomatinho-time-face))
        (insert "\n")
        (if tomatinho-display-tubes
 	   (tomatinho-display-tubes)
