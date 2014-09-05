@@ -67,31 +67,39 @@
   "Tack sound during a break.")
 
 
-;;;; Faces
-
+;;; Faces
+;; §later: classes for dark/light!
 (defface tomatinho-time-face
-  '(( t ( :family "DejaVu Sans" :height 200 :width semi-condensed))) ;; §see height was 888 §see unit!!
-  "Tomatinho super face for time"
+  '(( t ( :family "DejaVu Sans" :height 6.0 :width semi-condensed))) ;; §see height was 888 §see unit!!
+  ;; §note: when floating point, is relative height compared to parent
+  "Tomatinho face for Clock"
   :group 'tomatinho)
+;; §note: for inheritance, add :inherit tomatinho-time-face
 
 (defface tomatinho-ok-face
-  '((t (:foreground "#ff0000" :inherit tomatinho-time-face)))
+  '((t (:foreground "#ff0000")))
   "Tomatinho face for valid tomatinho run"
   :group 'tomatinho)
 
 (defface tomatinho-pause-face
-  '((t (:foreground "#00ff00" :inherit tomatinho-time-face)))
+  '((t (:foreground "#00ff00")))
   "Tomatinho face for paused tomatinho"
   :group 'tomatinho)
 
 (defface tomatinho-reset-face
-  '(( t (:foreground "blue" :inherit tomatinho-time-face))) ; was 333333
+  '(( t (:foreground "#333333")))
   "Tomatinho face for reseted tomatinho"
   :group 'tomatinho)
 
-(defvar tomatinho-pomodoro-history-face
-  '(:height 100)) ;; §see ;§was 444
-;; §maybe: differently set height of text?
+(defface tomatinho-current-ok-face
+  '((t (:height 2.5 :inherit tomatinho-ok-face)))
+    "Tomatinho face for current tomatinho"
+    :group 'tomatinho)
+
+(defface tomatinho-current-pause-face
+  '((t (:height 2.5 :inherit tomatinho-pause-face)))
+    "Tomatinho face for current pause"
+    :group 'tomatinho)
 
 ;;; Vars
 (defvar tomatinho-timer nil
@@ -252,12 +260,8 @@
         (diff (- (timestamp) tomatinho-last)))
     (insert (propertize (format "%d:%02d %s"  val diff (if (equal type 'ok) "pomodoro" "break"))
                         'font-lock-face
-			;; was (append  tomatinho-time-face
-                        (if (equal type 'ok) 'tomatinho-ok-face 'tomatinho-pause-face)
-                       ;;           tomatinho-pomodoro-history-face
-
-			))))
-;; §see: combine face!!
+                        (if (equal type 'ok) 'tomatinho-current-ok-face 'tomatinho-current-pause-face)))))
+;; §later: refactor to not redraw everything all the time.
 
 (defun tomatinho-update ()
   "First updates the variables and then the buffer, if it exists."
