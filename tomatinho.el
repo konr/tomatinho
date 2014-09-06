@@ -37,7 +37,7 @@
   "Name of the Tomatinho buffer"
   :type 'string :group 'tomatinho)
 
-(defalias 'tomatinho-buffer 'tomatinho-buffer-name)
+(defvaralias 'tomatinho-buffer 'tomatinho-buffer-name)
 ;; ¤note: might be preferable to refactor the code using this name
 
 (defcustom tomatinho-bar-length 25
