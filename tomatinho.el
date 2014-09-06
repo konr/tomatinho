@@ -2,7 +2,7 @@
 
 ;; Author: Konrad Scorciapino <konr@konr.mobi>
 ;; Keywords: time, productivity, pomodoro technique
-;; Version: 0.1
+;; Version: 0.2
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -33,9 +33,12 @@
   "Customs for `tomatinho' !"
   :group 'productivity)
 
-(defcustom tomatinho-buffer "Tomatinho!" ;§torename
+(defcustom tomatinho-buffer-name "Tomatinho!"
   "Name of the Tomatinho buffer"
   :type 'string :group 'tomatinho)
+
+(defalias 'tomatinho-buffer 'tomatinho-buffer-name)
+;; ¤note: might be preferable to refactor the code using this name
 
 (defcustom tomatinho-bar-length 25
   "Length of a podomoro bar in tubes mode"
