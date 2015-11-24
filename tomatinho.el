@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(eval-when-compile (require 'cl))
 
 (defvar tomatinho-buffer "Tomatinho!")
 (defvar tomatinho-format "%H:%M:%S")
