@@ -25,7 +25,7 @@
 
 ;;; Code:
 
-(require 'cl)
+(eval-when-compile (require 'cl))
 
 
 ;;; Customs
@@ -177,7 +177,7 @@
 
 (defun timestamp ()
   "Returns the timestamp as an integer."
-  (string-to-int (format-time-string "%s")))
+  (string-to-number (format-time-string "%s")))
 
 (defun play-sound-file-async (file)
   "Plys with some overhead, but at least doesn't freeze Emacs."
@@ -297,6 +297,7 @@
 ;; Main function ;;
 ;;;;;;;;;;;;;;;;;;;
 
+;;;###autoload
 (defun tomatinho ()
   "A simple and beautiful pomodoro technique timer."
   (interactive)
