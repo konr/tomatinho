@@ -31,10 +31,19 @@
 | <Tab>     | Toggles between display modes.                  |
 | q         | Kills the buffer.                               |
 | Q         | Turns off Tomatinho.                            |
+* Customization
+
+Now, you can customize tomatinho buffer name, the faces used, and
+the length of a podomoro
+
+To do so, run =M-x customize-group RET tomatinho=, and adjust the
+settings to your liking.
+
+Some more customs might be added in the future.
 
 * Seeing is believing
-  
-  Check out these screenshots! 
+
+  Check out these screenshots!
 
   - [[http://i.imgur.com/8Nay7.png]]
   - [[http://i.imgur.com/sqB0M.png]]
