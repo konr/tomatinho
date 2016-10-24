@@ -1,6 +1,6 @@
-;;; tomatinho.el --- Tomatinho
+;;; tomatinho.el --- Simple and beautiful pomodoro timer
 
-;; Author: Konrad Scorciapino <konr@konr.mobi>
+;; Author: Konrad Scorciapino <scorciapino@gmail.com>
 ;; Keywords: time, productivity, pomodoro technique
 ;; Version: 0.2
 
