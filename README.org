@@ -21,6 +21,34 @@
 
   This cycle goes on forever.
 
+* Stick to the grid
+
+  This is another way of working with pomodoros. Ideally, we should organize our
+  day in a grid, so we are purposefully engaged in an activity every half-hour.
+  Example:
+
+#+BEGIN_SRC
+  Monday:
+  - [ ] 10h00 Write plugin
+  - [ ] 10h30 Write plugin
+  - [ ] 11h00 Fix devops bug 
+  - [ ] 11h30 Fix devops bug
+  - [ ] 12h00 - PAUSE
+  - [ ] 12h30 - PAUSE
+  - [ ] 13h00 Foo
+  - [ ] 13h30 Bar
+  - [ ] 14h00 Baz
+  -  ...
+#+END_SRC
+
+  What happens if the pause at 12h30 extends to 13h03? One alternative is to
+  start the pomodoro, anyway, and compensate for the delay. Another is to start
+  the pomodoro at the 3-minute mark. 
+
+  This may look like cheating, but often isn't when, for example, you just
+  resume working and forget to start a new pomodoro. It actually frees you from
+  having to keep track of the state of affairs when things get out of control.
+
 * Keybindings
 
 | Key       | Description                                     |
@@ -31,6 +59,8 @@
 | <Tab>     | Toggles between display modes.                  |
 | q         | Kills the buffer.                               |
 | Q         | Turns off Tomatinho.                            |
+| S         | Stick to the grid                               |
+
 * Customization
 
 Now, you can customize tomatinho buffer name, the faces used, and

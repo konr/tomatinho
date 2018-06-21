@@ -52,6 +52,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "q") 'tomatinho-interactive-kill-buffer)
     (define-key map (kbd "Q") 'tomatinho-interactive-quit)
+    (define-key map (kbd "S") 'tomatinho-stick-to-the-grid)
     (define-key map (kbd "R") 'tomatinho-interactive-reset)
     (define-key map (kbd "<return>") 'tomatinho-interactive-new-pomodoro)
     (define-key map (kbd "S-<return>") 'tomatinho-interactive-deliberate-pause)
@@ -170,10 +171,22 @@
              (tomatinho-set-events nil '(ok . 0)))
     (message "Pfew! That was close!")))
 
+(defun tomatinho-stick-to-the-grid ()
+  (interactive)
+  (setq tomatinho-current
+        (tomatinho-ideal-state
+         (string-to-number (format-time-string "%M") 10))))
+
 
 ;;;;;;;;;;;
 ;; Utils ;;
 ;;;;;;;;;;;
+
+(defun tomatinho-ideal-state (minutes)
+  (cond ((< minutes 25) (cons 'ok minutes))
+        ((< minutes 30) (cons 'pause (- minutes 25)))
+        ((< minutes 55) (cons 'ok (- minutes 30)))
+        (t              (cons 'pause (- minutes 55)))))
 
 (defun timestamp ()
   "Returns the timestamp as an integer."
