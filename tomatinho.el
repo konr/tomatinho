@@ -282,14 +282,14 @@
 (defun tomatinho-update ()
   "First updates the variables and then the buffer, if it exists."
   (let ((time (timestamp))
-	(type (car tomatinho-current))
-	(val (cdr tomatinho-current))
+	      (type (car tomatinho-current))
+	      (val (cdr tomatinho-current))
         (tick nil) ;; MXE was here. Instead of:  (tick tomatinho-sound-tick)
         (tack tomatinho-sound-tack))
     (when (>= (- time tomatinho-last) (if tomatinho-debug 0 60))
       (setq tomatinho-current (cons type (1+ val)) tomatinho-last time)
       (when (and (equal type 'ok)
-		 (>= (1+ val) tomatinho-pomodoro-length))
+		             (>= (1+ val) tomatinho-pomodoro-length))
         (setq tomatinho-events (append tomatinho-events `((ok . ,tomatinho-pomodoro-length)))
               tomatinho-current '(pause . 0)))
       (play-sound-file-async (if (equal (car tomatinho-current) 'ok) tick tack))))
@@ -303,8 +303,8 @@
                            'font-lock-face 'tomatinho-time-face))
        (insert "\n")
        (if tomatinho-display-tubes
-	   (tomatinho-display-tubes)
-	 (tomatinho-display-history))))))
+	         (tomatinho-display-tubes)
+	       (tomatinho-display-history))))))
 
 ;;;;;;;;;;;;;;;;;;;
 ;; Main function ;;
